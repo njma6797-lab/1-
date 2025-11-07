@@ -1,64 +1,90 @@
-body{
+/* Reset */
+*{
   margin:0;
-  background:#0b1220;
-  color:white;
-  font-family:"Arial";
+  padding:0;
+  box-sizing:border-box;
 }
 
+body{
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(135deg, #0a0f1f, #0f1f35, #142544);
+  color:white;
+  overflow-x:hidden;
+}
+
+/* خلفية تأثير خفيف */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:
-    radial-gradient(circle at 20% 20%, rgba(0,200,255,.15), transparent),
-    radial-gradient(circle at 80% 80%, rgba(0,120,255,.18), transparent),
-    linear-gradient(90deg, transparent 49%, rgba(255,255,255,.05) 50%, transparent 51%) 0 0/40px 40px,
-    linear-gradient(transparent 49%, rgba(255,255,255,.04) 50%, transparent 51%) 0 0/40px 40px;
+    radial-gradient(circle at 20% 20%, rgba(0, 140, 255, 0.15), transparent),
+    radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.18), transparent),
+    url("https://i.imgur.com/9Q9QZ8h.png");
+  opacity:0.25;
   z-index:-1;
 }
 
+/* عنوان */
 .top{
   text-align:center;
-  padding:20px;
-  background:#111b30;
+  padding:25px 10px;
+  font-size:26px;
+  font-weight:bold;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
+/* منطقة البحث */
 .search-area{
-  padding:20px;
+  padding:25px;
   display:flex;
-  gap:10px;
   justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
 input,select{
-  padding:12px;
-  border-radius:10px;
-  border:1px solid #1d2949;
-  background:#0f1a2f;
+  padding:14px 18px;
+  font-size:16px;
+  border-radius:12px;
+  background:#101b30;
+  border:2px solid #1f2e4b;
   color:white;
+  outline:none;
+  transition:.3s;
 }
 
+input:focus, select:focus{
+  border-color:#4fa3ff;
+  box-shadow:0 0 8px #4fa3ff;
+}
+
+/* الكروت */
 .list{
-  padding:20px;
+  padding:25px;
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
+  gap:22px;
 }
 
 .card{
-  background:#111b30;
-  padding:20px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(145deg, #17243c, #0e1627);
+  padding:22px;
+  border-radius:18px;
   cursor:pointer;
-  transition:.2s;
+  transition:.25s;
+  border:1px solid rgba(255,255,255,.08);
 }
 
 .card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 0 12px #4fa3ff;
+  transform:scale(1.04);
+  box-shadow:0 0 20px #4fa3ff;
+  border-color:#4fa3ff;
 }
 
+/* المودال */
 .modal{
   display:none;
   position:fixed;
@@ -66,31 +92,44 @@ input,select{
   background:rgba(0,0,0,.75);
   justify-content:center;
   align-items:center;
+  z-index:999;
 }
 
 .modal-content{
-  background:#162038;
-  padding:25px;
+  background:#162441;
+  padding:30px;
   width:90%;
-  max-width:450px;
-  border-radius:16px;
+  max-width:500px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 0 25px #4fa3ff;
 }
 
 .close{
   float:left;
+  font-size:30px;
   cursor:pointer;
-  font-size:26px;
 }
 
+/* زر الصوت */
 .btn{
-  background:#1e3d80;
-  color:white;
-  padding:10px 16px;
-  border-radius:10px;
+  margin-top:15px;
+  padding:12px 18px;
   border:none;
+  border-radius:10px;
+  background:#4fa3ff;
+  color:#000;
+  font-weight:bold;
   cursor:pointer;
+  transition:.3s;
 }
 
+.btn:hover{
+  background:#79b9ff;
+  transform:translateY(-3px);
+}
+
+/* شاشة الترحيب */
 .welcome{
   position:fixed;
   inset:0;
@@ -102,9 +141,14 @@ input,select{
 }
 
 .welcome-box{
-  background:rgba(255,255,255,.1);
-  padding:30px 40px;
-  border-radius:20px;
+  background:rgba(0,0,0,.4);
+  padding:40px 50px;
+  border-radius:25px;
   text-align:center;
-  box-shadow:0 0 20px #59a8ff;
+  border:1px solid #4fa3ff;
+  box-shadow:0 0 25px #4fa3ff;
+}
+
+.welcome-box h2{
+  color:#4fa3ff;
 }
