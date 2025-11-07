@@ -1,27 +1,21 @@
 let data = [];
-let current = null;
-
-const files = [
-  "data1.json",
-  "data2.json",
-  "data3.json",
-  "data4.json",
-  "data5.json"
-];
-
-async function loadAllData(){
-  let final = [];
-  for(const f of files){
-    const res = await fetch(f);
-    const part = await res.json();
-    final = final.concat(part);
-  }
-  return final;
-}
+let files = ["data1.json", "data2.json", "data3.json", "data4.json", "data5.json"];
 
 window.onload = async () => {
-  data = await loadAllData();
+  // تحميل كل ملفات الداتا
+  for (let file of files) {
+    try {
+      const res = await fetch(file);
+      const part = await res.json();
+      data = data.concat(part);
+    } catch (e) {
+      console.log("Error loading:", file, e);
+    }
+  }
+
   render(data);
+
+  // رسالة الترحيب
   setTimeout(() => hideWelcome(), 5000);
 };
 
