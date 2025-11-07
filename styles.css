@@ -1,90 +1,122 @@
-/* Reset */
+/* RESET */
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
 
+/* BODY – خلفية سينمائية */
 body{
-  font-family: "Arial", sans-serif;
-  background: linear-gradient(135deg, #0a0f1f, #0f1f35, #142544);
-  color:white;
+  font-family: "Arial";
+  background:#050810;
+  color:#fff;
   overflow-x:hidden;
+  position:relative;
 }
 
-/* خلفية تأثير خفيف */
+/* ضباب سينمائي */
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(0, 140, 255, 0.15), transparent),
-    radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.18), transparent),
-    url("https://i.imgur.com/9Q9QZ8h.png");
-  opacity:0.25;
-  z-index:-1;
+  background:radial-gradient(circle at 30% 20%, rgba(0,180,255,0.15), transparent 60%),
+             radial-gradient(circle at 70% 80%, rgba(255,0,150,0.15), transparent 70%);
+  z-index:-2;
+  animation: fogMove 12s infinite alternate ease-in-out;
 }
 
-/* عنوان */
+/* ضوء متحرك */
+body::after{
+  content:"";
+  position:fixed;
+  background:conic-gradient(from 120deg,
+    rgba(0,255,200,0.15),
+    rgba(255,0,120,0.1),
+    rgba(0,150,255,0.2),
+    transparent
+  );
+  inset:-50% -50% -50% -50%;
+  filter:blur(120px);
+  animation: neonRotate 16s linear infinite;
+  z-index:-3;
+}
+
+@keyframes fogMove {
+  0%{transform:translateX(0);}
+  100%{transform:translateX(40px);}
+}
+
+@keyframes neonRotate {
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+
+/* عنوان علوي */
 .top{
   text-align:center;
-  padding:25px 10px;
-  font-size:26px;
+  padding:25px;
+  font-size:28px;
   font-weight:bold;
   background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,170,255,.25);
+  text-shadow:0 0 12px #00d0ff;
 }
 
-/* منطقة البحث */
+/* البحث */
 .search-area{
   padding:25px;
   display:flex;
   justify-content:center;
-  gap:12px;
+  gap:15px;
   flex-wrap:wrap;
 }
 
 input,select{
-  padding:14px 18px;
-  font-size:16px;
-  border-radius:12px;
-  background:#101b30;
-  border:2px solid #1f2e4b;
+  padding:14px 16px;
+  border-radius:14px;
+  border:1px solid rgba(0,255,255,.3);
+  background:rgba(10,20,40,.65);
   color:white;
-  outline:none;
+  backdrop-filter:blur(10px);
   transition:.3s;
+  box-shadow:0 0 12px rgba(0,255,255,.2) inset;
 }
 
 input:focus, select:focus{
-  border-color:#4fa3ff;
-  box-shadow:0 0 8px #4fa3ff;
+  box-shadow:0 0 18px #00eaff, 0 0 10px #00eaff inset;
+  border-color:#00eaff;
 }
 
-/* الكروت */
+/* الكروت – هولوجرام + Glass */
 .list{
   padding:25px;
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
-  gap:22px;
+  gap:25px;
 }
 
 .card{
-  background:linear-gradient(145deg, #17243c, #0e1627);
-  padding:22px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(0,255,255,.15);
+  padding:25px;
   border-radius:18px;
+  backdrop-filter:blur(12px);
   cursor:pointer;
-  transition:.25s;
-  border:1px solid rgba(255,255,255,.08);
+  transition:.3s;
+  box-shadow:0 0 15px rgba(0,255,255,.1),
+             inset 0 0 10px rgba(255,255,255,.05);
 }
 
 .card:hover{
-  transform:scale(1.04);
-  box-shadow:0 0 20px #4fa3ff;
-  border-color:#4fa3ff;
+  transform:scale(1.06) translateY(-5px);
+  box-shadow:
+    0 0 25px #00eaff,
+    inset 0 0 20px rgba(255,255,255,.1);
+  border-color:#00eaff;
 }
 
-/* المودال */
+/* المودال – نافذة سينمائية */
 .modal{
   display:none;
   position:fixed;
@@ -92,63 +124,72 @@ input:focus, select:focus{
   background:rgba(0,0,0,.75);
   justify-content:center;
   align-items:center;
-  z-index:999;
+  backdrop-filter:blur(8px);
 }
 
 .modal-content{
-  background:#162441;
-  padding:30px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(0,255,255,.3);
+  backdrop-filter:blur(16px);
   width:90%;
-  max-width:500px;
+  max-width:520px;
+  padding:30px;
   border-radius:18px;
-  border:1px solid rgba(255,255,255,.1);
-  box-shadow:0 0 25px #4fa3ff;
+  box-shadow:0 0 35px #00eaff;
+  animation: popUp .35s ease;
+}
+
+@keyframes popUp {
+  0%{ transform:scale(0.7); opacity:0; }
+  100%{ transform:scale(1); opacity:1; }
 }
 
 .close{
   float:left;
   font-size:30px;
   cursor:pointer;
+  text-shadow:0 0 10px #00eaff;
 }
 
 /* زر الصوت */
 .btn{
-  margin-top:15px;
-  padding:12px 18px;
-  border:none;
-  border-radius:10px;
-  background:#4fa3ff;
+  padding:12px 20px;
+  background:#00eaff;
   color:#000;
   font-weight:bold;
+  border:none;
+  border-radius:12px;
   cursor:pointer;
-  transition:.3s;
+  transition:.2s;
+  box-shadow:0 0 18px #00eaff;
 }
 
 .btn:hover{
-  background:#79b9ff;
   transform:translateY(-3px);
+  background:#4ff3ff;
 }
 
 /* شاشة الترحيب */
 .welcome{
+  background:rgba(0,0,0,.7);
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.85);
   display:flex;
   justify-content:center;
   align-items:center;
-  z-index:9999;
+  z-index:999;
 }
 
 .welcome-box{
-  background:rgba(0,0,0,.4);
+  background:rgba(255,255,255,.05);
   padding:40px 50px;
   border-radius:25px;
-  text-align:center;
-  border:1px solid #4fa3ff;
-  box-shadow:0 0 25px #4fa3ff;
+  border:1px solid rgba(0,255,255,.3);
+  box-shadow:0 0 40px #00eaff;
+  backdrop-filter:blur(14px);
 }
 
 .welcome-box h2{
-  color:#4fa3ff;
+  color:#00eaff;
+  text-shadow:0 0 12px #00eaff;
 }
