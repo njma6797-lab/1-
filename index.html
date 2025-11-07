@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Buyer Toolkit</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="welcome" class="welcome" onclick="hideWelcome()">
+  <div class="welcome-box">
+    <h2>مرحباً بك في موقع مصطلحات الميديا باير</h2>
+    <p>اتفضل يا بطل ✨</p>
+  </div>
+</div>
+
+<header class="top">
+  <h1>Media Buyer & Digital Marketing Dictionary</h1>
+</header>
+
+<section class="search-area">
+  <input id="search" type="text" placeholder="ابحث عن مصطلح...">
+  <select id="sectionFilter">
+    <option value="">كل الأقسام</option>
+    <option value="Ads">Ads</option>
+    <option value="Platforms">Platforms</option>
+    <option value="Websites">Websites</option>
+    <option value="Social Media">Social Media</option>
+    <option value="Creative">Creative</option>
+  </select>
+</section>
+
+<section id="list" class="list"></section>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span onclick="closeModal()" class="close">×</span>
+    <h2 id="mTitle"></h2>
+    <p id="mMeaning"></p>
+    <p id="mDetails"></p>
+    <button onclick="speakDetails()" class="btn">🔊 سماع الشرح</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
