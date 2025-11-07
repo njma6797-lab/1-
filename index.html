@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Media Buyer Toolkit</title>
-
+  <title>Media Buyer Toolkit PRO</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
+<!-- زر الإعدادات -->
+<div id="settingsBtn" class="settings-btn" onclick="openSettings()">⚙️</div>
+
+<!-- شاشة الترحيب -->
 <div id="welcome" class="welcome" onclick="hideWelcome()">
   <div class="welcome-box">
     <h2>مرحباً بك في موقع مصطلحات الميديا باير</h2>
@@ -18,7 +21,7 @@
 </div>
 
 <header class="top">
-  <h1>Media Buyer & Digital Marketing Dictionary</h1>
+  <h1>Media Buyer & Digital Marketing Dictionary PRO</h1>
 </header>
 
 <section class="search-area">
@@ -35,14 +38,46 @@
 
 <section id="list" class="list"></section>
 
+<!-- المودال -->
 <div id="modal" class="modal">
   <div class="modal-content">
     <span onclick="closeModal()" class="close">×</span>
     <h2 id="mTitle"></h2>
     <p id="mMeaning"></p>
     <p id="mDetails"></p>
+
     <button onclick="speakDetails()" class="btn">🔊 سماع الشرح</button>
+    <button onclick="stopSpeak()" class="btn stop">⛔ إيقاف الصوت</button>
   </div>
+</div>
+
+<!-- نافذة الإعدادات -->
+<div id="settingsPanel" class="settings-panel">
+  <h2>الإعدادات</h2>
+
+  <label>اختر صوت المتحدث:</label>
+  <select id="voiceSelect"></select>
+
+  <label>تغيير اللغة:</label>
+  <select id="langSelect" onchange="changeLanguage()">
+    <option value="ar">العربية</option>
+    <option value="en">English</option>
+  </select>
+
+  <label>تواصل مع خدمة العملاء:</label>
+  <a href="https://wa.me/201206561893" class="whatsapp">📞 واتساب: 01206561893</a>
+
+  <label>اصنع موقعك على GitHub:</label>
+  <a href="https://github.com/YOUR_USERNAME" class="github">🔥 افتح GitHub</a>
+
+  <label>أدوات تساعدك:</label>
+  <ul class="tools">
+    <li>✅ أداة فحص الروابط</li>
+    <li>✅ أداة ضغط الصور</li>
+    <li>✅ أداة استخراج ألوان التصميم</li>
+  </ul>
+
+  <button onclick="closeSettings()" class="btn close-set">إغلاق</button>
 </div>
 
 <script src="app.js"></script>
