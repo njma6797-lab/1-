@@ -3,48 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Media Byer</title>
+<title>ميديا باير</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<canvas id="stars"></canvas>
-
+<!-- شاشة الترحيب -->
 <div class="welcome" id="welcome">
   <div class="welcome-box">
-    <h1>مرحبًا بك في <span class="highlight">Media Byer</span></h1>
+    <h1>مرحبًا بك في ميديا باير</h1>
+    <p>تعلم الإعلانات وطرق جذب الجمهور بسهولة</p>
   </div>
 </div>
 
-<div class="top">Media Byer</div>
-
+<!-- زر الإعدادات -->
 <div class="settings-btn" onclick="openSettings()">⚙️</div>
 
-<div class="settings-panel" id="settingsPanel">
+<!-- لوحة الإعدادات -->
+<div class="settings-panel" id="settingsPanel" onclick="closeSettingsByClick(event)">
+  <h2>الإعدادات</h2>
   <label>اللغة:
-    <select id="langSelectSettings" onchange="changeLanguage()">
-      <option value="ar">عربي</option>
+    <select id="langSelect" onchange="changeLanguage()">
+      <option value="ar" selected>عربي</option>
       <option value="en">English</option>
     </select>
   </label>
-  <a class="whatsapp" href="https://wa.me/201206561893" target="_blank">واتساب +20</a>
-  <div>Tools</div>
-  <button class="btn" onclick="closeSettings()">اغلق الإعدادات</button>
+  <label>أدوات مساعدة:</label>
+  <a href="https://wa.me/201206561893" class="whatsapp">واتساب الدعم</a>
+  <button class="btn" onclick="closeSettings()">إغلاق</button>
 </div>
 
+<!-- العنوان -->
+<div class="top">
+  <h2>ميديا باير</h2>
+</div>
+
+<!-- البحث والفلاتر -->
 <div class="search-area">
-  <input type="text" id="search" placeholder="ابحث هنا...">
-  <select id="sectionFilter"><option value="">كل الأقسام</option></select>
+  <input type="text" id="search" placeholder="ابحث عن المصطلحات...">
+  <select id="sectionFilter">
+    <option value="">الكل</option>
+  </select>
 </div>
 
+<!-- قائمة الكروت -->
 <div class="list" id="list"></div>
 
+<!-- مودال التفاصيل -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">✖️</span>
-    <h2 id="mTitle"></h2>
+    <h3 id="mTitle"></h3>
     <p id="mMeaning"></p>
     <p id="mDetails"></p>
+    <button class="btn" onclick="speakDetails()">▶️ استمع</button>
+    <button class="btn" onclick="stopSpeak()">⏹ إيقاف</button>
   </div>
 </div>
 
