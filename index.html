@@ -1,39 +1,53 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>NEGM — المصطلحات</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Byern</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- خلفية تأثيرات -->
-<div class="bg-dots"></div>
-<div class="bg-glow"></div>
+<!-- شاشة الترحيب -->
+<div class="welcome" id="welcome">
+  <div class="welcome-box">
+    <h1>مرحبًا بك في موسوعة المصطلحات</h1>
+    <p>انتظر قليلًا جاري التحميل...</p>
+  </div>
+</div>
 
-<header class="top">
-  <div class="brand">NEGM</div> <!-- اسم الموقع صغير -->
-</header>
+<!-- اسم الموقع -->
+<div class="top">Media Byern</div>
 
-<main>
-  <section class="controls">
-    <input id="search" type="text" placeholder="ابحث عن مصطلح..." />
-    <select id="sectionFilter"><option value="">كل الأقسام</option></select>
-    <select id="langSelect">
-      <option value="ar">العربية</option>
-      <option value="en">English</option>
-    </select>
-    <select id="voiceSelect"></select>
-  </section>
+<!-- زر الإعدادات -->
+<div class="settings-btn" onclick="openSettings()">⚙️</div>
 
-  <section id="list" class="list" aria-live="polite"></section>
-</main>
+<!-- الإعدادات الجانبية -->
+<div class="settings-panel" id="settingsPanel" onclick="closeSettingsByClick(event)">
+  <h3>الإعدادات</h3>
+  <label>اللغة:</label>
+  <select id="langSelectSettings" onchange="changeLanguage()">
+    <option value="ar">العربية</option>
+    <option value="en">English</option>
+  </select>
+  <a class="whatsapp" href="https://wa.me/0123456789" target="_blank">💬 WhatsApp</a>
+  <a class="tools" href="#">🛠 Tools المساعده</a>
+  <button class="btn" onclick="closeSettings()">إغلاق</button>
+</div>
 
-<!-- مودال التفاصيل -->
-<div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+<!-- البحث والفلاتر -->
+<div class="search-area">
+  <input type="text" id="search" placeholder="ابحث عن مصطلح">
+  <select id="sectionFilter"><option value="">كل الأقسام</option></select>
+</div>
+
+<!-- قائمة الكروت -->
+<div class="list" id="list"></div>
+
+<!-- المودال -->
+<div class="modal" id="modal">
   <div class="modal-content">
-    <button class="close" id="modalClose">&times;</button>
+    <span class="close" onclick="closeModal()">×</span>
     <h2 id="mTitle"></h2>
     <p id="mMeaning"></p>
     <p id="mDetails"></p>
