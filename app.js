@@ -68,7 +68,6 @@ function stopCard(e){e.stopPropagation();speechSynthesis.cancel();}
 
 function changeLanguage(){let lang=langSelect.value;document.documentElement.lang=lang;document.documentElement.dir=(lang==="ar")?"rtl":"ltr";}
 
-/* نجوم متحركة */
 const canvas=document.getElementById("stars");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
