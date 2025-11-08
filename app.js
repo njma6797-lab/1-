@@ -7,7 +7,7 @@ let files=[
 
 const search=document.getElementById("search");
 const sectionFilter=document.getElementById("sectionFilter");
-const langSelect=document.getElementById("langSelect");
+const langSelect=document.getElementById("langSelectSettings");
 const container=document.getElementById("list");
 const modal=document.getElementById("modal");
 const mTitle=document.getElementById("mTitle");
@@ -16,6 +16,7 @@ const mDetails=document.getElementById("mDetails");
 const settingsPanel=document.getElementById("settingsPanel");
 
 window.onload=async ()=>{
+  // تحميل كل الملفات
   for(let file of files){
     try{
       let res=await fetch(file);
@@ -30,6 +31,7 @@ window.onload=async ()=>{
 };
 
 function hideWelcome(){document.getElementById("welcome").style.display="none";}
+
 function render(list){
   container.innerHTML="";
   list.forEach(item=>{
@@ -59,15 +61,24 @@ function openSettings(){settingsPanel.classList.add("show");}
 function closeSettings(){settingsPanel.classList.remove("show");}
 function closeSettingsByClick(e){if(e.target.id==="settingsPanel"){closeSettings();}}
 
-// الصوت
+// الصوت باستخدام Google TTS
 let selectedVoice=null;
 let msg=null;
 function loadVoices(){
   let voices=speechSynthesis.getVoices();
-  selectedVoice=voices[0];
+  if(voices.length>0) selectedVoice=voices[0];
 }
 speechSynthesis.onvoiceschanged=loadVoices;
-function speakCard(e,index){e.stopPropagation();speechSynthesis.cancel();let item=data[index];msg=new SpeechSynthesisUtterance(`${item.term_en}. ${item.term_ar}. ${item.meaning}. ${item.details}`);msg.voice=selectedVoice;msg.lang=(langSelect.value==="ar")?"ar":"en-US";speechSynthesis.speak(msg);}
+
+function speakCard(e,index){
+  e.stopPropagation();
+  speechSynthesis.cancel();
+  let item=data[index];
+  msg=new SpeechSynthesisUtterance(`${item.term_en}. ${item.term_ar}. ${item.meaning}. ${item.details}`);
+  msg.voice=selectedVoice;
+  msg.lang=(langSelect.value==="ar")?"ar":"en-US";
+  speechSynthesis.speak(msg);
+}
 function stopCard(e){e.stopPropagation();speechSynthesis.cancel();}
 
 // اللغة
