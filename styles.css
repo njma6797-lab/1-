@@ -33,6 +33,10 @@ body{
   text-align:center;
   box-shadow:0 0 25px #ffd700;
 }
+.welcome-box .highlight{
+  color:#ffd700;
+  font-weight:bold;
+}
 
 /* العنوان */
 .top{
@@ -81,10 +85,17 @@ input, select{
   transition:0.3s;
   position: relative;
   z-index:2;
+  color:#fff;
 }
 .card:hover{
   transform:scale(1.05);
   box-shadow:0 0 20px #ffd700;
+}
+.card h3{
+  color:#4fa3ff;
+}
+.card p{
+  color:#ffd700;
 }
 .card button{
   margin-top:8px;
@@ -93,8 +104,8 @@ input, select{
   border:none;
   border-radius:8px;
   cursor:pointer;
-  background: #ffd700;
-  color: #000;
+  background: #4fa3ff;
+  color: #fff;
   font-weight: bold;
 }
 
@@ -115,6 +126,7 @@ input, select{
   max-width:450px;
   border-radius:15px;
   box-shadow:0 0 20px #ffd700;
+  color:white;
 }
 .close{
   float:right;
