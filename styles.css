@@ -1,67 +1,69 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
   font-family:"Cairo",sans-serif;
-  background: linear-gradient(to bottom,#0a1a2b,#1b2d4a);
-  color: white;
-  overflow-x: hidden;
-  min-height: 100vh;
-  position: relative;
+  background:#0a0f30;
+  color:white;
+  overflow-x:hidden;
+  position:relative;
 }
 
-/* خلفية النجوم */
-#stars{
-  position: fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  z-index:0;
+/* نجوم متساقطة */
+body::before{
+  content:"";
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  background:url('https://i.ibb.co/5R6bDgN/stars.gif') center/cover no-repeat;
+  z-index:-1;
+  opacity:0.3;
 }
 
-/* الترحيب */
+/* زر الإعدادات */
+.settings-btn{
+  position:fixed;
+  top:20px;left:20px;
+  font-size:30px;
+  background:#1a2540;
+  padding:10px 14px;
+  border-radius:12px;
+  cursor:pointer;
+  box-shadow:0 0 15px #ffd700;
+  transition:0.3s;
+}
+.settings-btn:hover{background:#ffd700;color:#000;}
+
+/* شاشة الترحيب */
 .welcome{
-  position: fixed;
-  inset:0;
-  background: rgba(0,0,0,0.7);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:5;
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.8);
+  display:flex;justify-content:center;align-items:center;
+  z-index:9999;
+  text-align:center;
 }
 .welcome-box{
-  background: rgba(255,255,255,0.1);
-  padding:40px;
-  border-radius:20px;
-  text-align:center;
+  background:rgba(255,255,255,0.1);
+  padding:40px;border-radius:20px;
   box-shadow:0 0 25px #ffd700;
-}
-.welcome-box .highlight{
-  color:#ffd700;
-  font-weight:bold;
 }
 
 /* العنوان */
 .top{
   text-align:center;
-  padding:15px;
-  background: rgba(17,27,48,0.85);
-  z-index:2;
-  position: relative;
-  font-size: 22px;
-  font-weight: bold;
+  padding:25px;
+  background:#111b30;
+  box-shadow:0 0 10px #ffd700;
 }
 
 /* البحث */
 .search-area{
-  padding:20px;
+  padding:25px;
   display:flex;
   justify-content:center;
   gap:15px;
   flex-wrap:wrap;
-  position: relative;
-  z-index:2;
 }
-input, select{
-  padding:12px 14px;
-  border-radius:8px;
+input,select{
+  padding:14px 16px;
+  border-radius:10px;
   background:#0f1a2f;
   border:1px solid #23345c;
   color:white;
@@ -69,64 +71,56 @@ input, select{
 
 /* الكروت */
 .list{
-  padding:20px;
+  padding:25px;
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
   gap:20px;
-  position: relative;
-  z-index:2;
 }
 .card{
-  background: rgba(17,27,48,0.9);
+  background:#111b30;
   padding:20px;
   border-radius:16px;
   cursor:pointer;
   border:1px solid rgba(255,255,255,.1);
-  transition:0.3s;
-  position: relative;
-  z-index:2;
-  color:#fff;
+  transition:.3s;
+  position:relative;
 }
 .card:hover{
   transform:scale(1.05);
   box-shadow:0 0 20px #ffd700;
 }
-.card h3{
-  color:#4fa3ff;
-}
-.card p{
-  color:#ffd700;
-}
+
+/* الأزرار داخل البطاقة */
 .card button{
-  margin-top:8px;
-  margin-right:5px;
+  margin-top:10px;
   padding:6px 10px;
   border:none;
   border-radius:8px;
   cursor:pointer;
-  background: #4fa3ff;
-  color: #fff;
-  font-weight: bold;
+  background:linear-gradient(45deg,#ffd700,#555);
+  color:#000;
+  font-weight:bold;
+  transition:0.3s;
+}
+.card button:hover{
+  box-shadow:0 0 10px #ffd700;
 }
 
 /* المودال */
 .modal{
   display:none;
-  position: fixed;
+  position:fixed;
   inset:0;
-  background: rgba(0,0,0,0.7);
+  background:rgba(0,0,0,0.7);
   justify-content:center;
   align-items:center;
-  z-index:10;
 }
 .modal-content{
   background:#162038;
-  padding:25px;
-  width:90%;
-  max-width:450px;
+  padding:30px;
+  width:90%;max-width:450px;
   border-radius:15px;
   box-shadow:0 0 20px #ffd700;
-  color:white;
 }
 .close{
   float:right;
@@ -135,40 +129,29 @@ input, select{
 }
 
 /* الإعدادات */
-.settings-btn{
-  position: fixed;
-  top:20px;
-  left:20px;
-  font-size:30px;
-  background:#1a2540;
-  padding:10px 14px;
-  border-radius:12px;
-  cursor:pointer;
-  z-index:10;
-}
 .settings-panel{
-  position: fixed;
+  position:fixed;
   top:0;
   left:-400px;
-  width:320px;
-  height:100%;
+  width:320px;height:100%;
   background:#111b30;
   padding:25px;
   transition:0.4s;
-  z-index:11;
+  z-index:99999;
 }
 .settings-panel.show{left:0;}
-label{margin-top:10px;display:block;}
+.settings-panel label{margin-top:10px;display:block;}
 .whatsapp{color:#4fa3ff;display:block;margin-top:8px;}
 .btn{
   margin-top:15px;
   padding:12px 18px;
   border:none;
   border-radius:10px;
-  background: linear-gradient(45deg,#ffd700,#555);
+  cursor:pointer;
+  background:linear-gradient(45deg,#ffd700,#555);
   color:#000;
   font-weight:bold;
-  cursor:pointer;
+  transition:0.3s;
 }
 .btn:hover{
   box-shadow:0 0 15px #ffd700;
