@@ -16,7 +16,7 @@
 <div id="welcome" class="welcome" onclick="hideWelcome()">
   <div class="welcome-box">
     <h2>مرحباً بك في موقع مصطلحات الميديا باير</h2>
-    <p>اتفضل يا بطل ✨</p>
+    <p>ابدأ رحلتك الاحترافية ✨</p>
   </div>
 </div>
 
@@ -28,32 +28,31 @@
   <input id="search" type="text" placeholder="ابحث عن مصطلح...">
   <select id="sectionFilter">
     <option value="">كل الأقسام</option>
-    <option value="Ads">Ads</option>
-    <option value="Platforms">Platforms</option>
-    <option value="Websites">Websites</option>
-    <option value="Social Media">Social Media</option>
-    <option value="Creative">Creative</option>
+    <option value="Ads">الإعلانات</option>
+    <option value="Platforms">المنصات</option>
+    <option value="Websites">المواقع</option>
+    <option value="Social Media">السوشيال ميديا</option>
+    <option value="Creative">التصميم والإبداع</option>
   </select>
 </section>
 
 <section id="list" class="list"></section>
 
-<!-- المودال -->
+<!-- نافذة التفاصيل -->
 <div id="modal" class="modal">
   <div class="modal-content">
     <span onclick="closeModal()" class="close">×</span>
     <h2 id="mTitle"></h2>
     <p id="mMeaning"></p>
     <p id="mDetails"></p>
-
     <button onclick="speakDetails()" class="btn">🔊 سماع الشرح</button>
     <button onclick="stopSpeak()" class="btn stop">⛔ إيقاف الصوت</button>
   </div>
 </div>
 
-<!-- نافذة الإعدادات -->
-<div id="settingsPanel" class="settings-panel">
-  <h2>الإعدادات</h2>
+<!-- لوحة الإعدادات -->
+<div id="settingsPanel" class="settings-panel" onclick="closeSettingsByClick(event)">
+  <h2>⚙️ الإعدادات</h2>
 
   <label>اختر صوت المتحدث:</label>
   <select id="voiceSelect"></select>
@@ -64,17 +63,14 @@
     <option value="en">English</option>
   </select>
 
-  <label>تواصل مع خدمة العملاء:</label>
+  <label>تواصل مع الدعم:</label>
   <a href="https://wa.me/201206561893" class="whatsapp">📞 واتساب: 01206561893</a>
 
-  <label>اصنع موقعك على GitHub:</label>
-  <a href="https://github.com/YOUR_USERNAME" class="github">🔥 افتح GitHub</a>
-
-  <label>أدوات تساعدك:</label>
+  <label>روابط مفيدة:</label>
   <ul class="tools">
-    <li>✅ أداة فحص الروابط</li>
-    <li>✅ أداة ضغط الصور</li>
-    <li>✅ أداة استخراج ألوان التصميم</li>
+    <li>✅ فحص الروابط</li>
+    <li>✅ ضغط الصور</li>
+    <li>✅ استخراج ألوان التصميم</li>
   </ul>
 
   <button onclick="closeSettings()" class="btn close-set">إغلاق</button>
