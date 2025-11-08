@@ -1,29 +1,12 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
   font-family:"Cairo",sans-serif;
-  background:#001f4d;
+  background:linear-gradient(to bottom,#001f4d,#003366);
   color:white;
   overflow-x:hidden;
   min-height:100vh;
   position:relative;
 }
-
-/* النجوم المتساقطة */
-body::before{
-  content:"";
-  position:fixed;
-  top:0;left:0;width:100%;height:100%;
-  background:#001f4d;
-  z-index:-1;
-}
-.star{
-  position:absolute;
-  width:2px;height:2px;
-  background:white;
-  border-radius:50%;
-  animation:starFall linear infinite;
-}
-@keyframes starFall{0%{transform:translateY(-10px);}100%{transform:translateY(100vh);}}
 
 /* شاشة الترحيب */
 .welcome{
