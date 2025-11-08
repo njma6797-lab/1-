@@ -8,7 +8,6 @@ body{
   position:relative;
 }
 
-/* شاشة الترحيب */
 .welcome{
   position:fixed;top:0;left:0;width:100%;height:100%;
   display:flex;justify-content:center;align-items:center;
@@ -28,7 +27,6 @@ body{
   100%{box-shadow:0 0 50px #ffd700;}
 }
 
-/* اسم الموقع */
 .top{
   text-align:center;
   padding:15px;
@@ -37,7 +35,6 @@ body{
   color:#ffd700;
 }
 
-/* زر الإعدادات */
 .settings-btn{
   position:fixed;top:20px;left:20px;
   font-size:32px;
@@ -53,7 +50,6 @@ body{
   background:#ffd700;color:#000;
 }
 
-/* لوحة الإعدادات */
 .settings-panel{
   position:fixed;top:0;left:-400px;
   width:320px;height:100%;
@@ -68,7 +64,6 @@ body{
 .btn{margin-top:15px;padding:12px 18px;border:none;border-radius:10px;cursor:pointer;background:linear-gradient(45deg,#ffd700,#555);color:#000;font-weight:bold;transition:0.3s;}
 .btn:hover{box-shadow:0 0 15px #ffd700;transform:scale(1.05);}
 
-/* البحث والفلاتر */
 .search-area{
   padding:20px;
   display:flex;
@@ -84,7 +79,6 @@ input,select{
   color:white;
 }
 
-/* الكروت */
 .list{
   padding:20px;
   display:grid;
@@ -121,7 +115,6 @@ input,select{
   box-shadow:0 0 15px #ffd700;
 }
 
-/* المودال */
 .modal{
   display:none;
   position:fixed;
