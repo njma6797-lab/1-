@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<!-- النجوم الخلفية -->
 <canvas id="stars"></canvas>
 
 <!-- شاشة الترحيب -->
@@ -19,13 +18,10 @@
   </div>
 </div>
 
-<!-- اسم الموقع -->
 <div class="top">Media Byern</div>
 
-<!-- زر الإعدادات -->
 <div class="settings-btn" onclick="openSettings()">⚙️</div>
 
-<!-- الإعدادات الجانبية -->
 <div class="settings-panel" id="settingsPanel" onclick="closeSettingsByClick(event)">
   <h3>الإعدادات</h3>
   <label>اللغة:</label>
@@ -38,16 +34,13 @@
   <button class="btn" onclick="closeSettings()">إغلاق</button>
 </div>
 
-<!-- البحث والفلاتر -->
 <div class="search-area">
   <input type="text" id="search" placeholder="ابحث عن مصطلح">
   <select id="sectionFilter"><option value="">كل الأقسام</option></select>
 </div>
 
-<!-- قائمة الكروت -->
 <div class="list" id="list"></div>
 
-<!-- المودال -->
 <div class="modal" id="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">×</span>
