@@ -1,79 +1,61 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Media Buyer Toolkit PRO</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>موسوعة المصطلحات</title>
+<link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<!-- زر الإعدادات -->
-<div id="settingsBtn" class="settings-btn" onclick="openSettings()">⚙️</div>
-
 <!-- شاشة الترحيب -->
-<div id="welcome" class="welcome" onclick="hideWelcome()">
+<div class="welcome" id="welcome">
   <div class="welcome-box">
-    <h2>مرحباً بك في موقع مصطلحات الميديا باير</h2>
-    <p>ابدأ رحلتك الاحترافية ✨</p>
+    <h1>مرحبًا بك في موسوعة المصطلحات</h1>
+    <p>انتظر قليلًا جاري التحميل...</p>
   </div>
 </div>
 
-<header class="top">
-  <h1>Media Buyer & Digital Marketing Dictionary PRO</h1>
-</header>
+<!-- زر الإعدادات -->
+<div class="settings-btn" onclick="openSettings()">⚙️</div>
 
-<section class="search-area">
-  <input id="search" type="text" placeholder="ابحث عن مصطلح...">
-  <select id="sectionFilter">
-    <option value="">كل الأقسام</option>
-    <option value="Ads">الإعلانات</option>
-    <option value="Platforms">المنصات</option>
-    <option value="Websites">المواقع</option>
-    <option value="Social Media">السوشيال ميديا</option>
-    <option value="Creative">التصميم والإبداع</option>
-  </select>
-</section>
+<!-- العنوان -->
+<div class="top">موسوعة المصطلحات</div>
 
-<section id="list" class="list"></section>
-
-<!-- نافذة التفاصيل -->
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span onclick="closeModal()" class="close">×</span>
-    <h2 id="mTitle"></h2>
-    <p id="mMeaning"></p>
-    <p id="mDetails"></p>
-    <button onclick="speakDetails()" class="btn">🔊 سماع الشرح</button>
-    <button onclick="stopSpeak()" class="btn stop">⛔ إيقاف الصوت</button>
-  </div>
-</div>
-
-<!-- لوحة الإعدادات -->
-<div id="settingsPanel" class="settings-panel" onclick="closeSettingsByClick(event)">
-  <h2>⚙️ الإعدادات</h2>
-
-  <label>اختر صوت المتحدث:</label>
-  <select id="voiceSelect"></select>
-
-  <label>تغيير اللغة:</label>
+<!-- منطقة البحث والفلاتر -->
+<div class="search-area">
+  <input type="text" id="search" placeholder="ابحث عن مصطلح">
+  <select id="sectionFilter"><option value="">كل الأقسام</option></select>
   <select id="langSelect" onchange="changeLanguage()">
     <option value="ar">العربية</option>
     <option value="en">English</option>
   </select>
+  <select id="voiceSelect"></select>
+  <button class="btn" onclick="speakDetails()">🔊 استمع</button>
+  <button class="btn" onclick="stopSpeak()">⏹️ إيقاف</button>
+</div>
 
-  <label>تواصل مع الدعم:</label>
-  <a href="https://wa.me/201206561893" class="whatsapp">📞 واتساب: 01206561893</a>
+<!-- قائمة الكروت -->
+<div class="list" id="list"></div>
 
-  <label>روابط مفيدة:</label>
-  <ul class="tools">
-    <li>✅ فحص الروابط</li>
-    <li>✅ ضغط الصور</li>
-    <li>✅ استخراج ألوان التصميم</li>
-  </ul>
+<!-- المودال -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="mTitle"></h2>
+    <p id="mMeaning"></p>
+    <p id="mDetails"></p>
+  </div>
+</div>
 
-  <button onclick="closeSettings()" class="btn close-set">إغلاق</button>
+<!-- الإعدادات -->
+<div class="settings-panel" id="settingsPanel" onclick="closeSettingsByClick(event)">
+  <h3>الإعدادات</h3>
+  <label>اللغة:</label>
+  <select id="langSelectSettings" onchange="changeLanguage()">
+    <option value="ar">العربية</option>
+    <option value="en">English</option>
+  </select>
 </div>
 
 <script src="app.js"></script>
