@@ -1,156 +1,74 @@
-/* app.js — يدعم تحميل data1..data10.json، كروت مع أزرار استمع/إيقاف داخل كل كرت */
-let data = [];
-let current = null;
-const files = [
+let data=[];
+let current=null;
+let files=[
   "data1.json","data2.json","data3.json","data4.json","data5.json",
   "data6.json","data7.json","data8.json","data9.json","data10.json"
 ];
 
-const search = document.getElementById("search");
-const sectionFilter = document.getElementById("sectionFilter");
-const langSelect = document.getElementById("langSelect");
-const voiceSelect = document.getElementById("voiceSelect");
-const container = document.getElementById("list");
-const modal = document.getElementById("modal");
-const mTitle = document.getElementById("mTitle");
-const mMeaning = document.getElementById("mMeaning");
-const mDetails = document.getElementById("mDetails");
-const modalClose = document.getElementById("modalClose") || document.getElementById("modalClose");
+const search=document.getElementById("search");
+const sectionFilter=document.getElementById("sectionFilter");
+const langSelect=document.getElementById("langSelect");
+const container=document.getElementById("list");
+const modal=document.getElementById("modal");
+const mTitle=document.getElementById("mTitle");
+const mMeaning=document.getElementById("mMeaning");
+const mDetails=document.getElementById("mDetails");
+const settingsPanel=document.getElementById("settingsPanel");
 
-window.onload = async () => {
-  await loadAllData();
+window.onload=async ()=>{
+  for(let file of files){
+    try{
+      let res=await fetch(file);
+      let part=await res.json();
+      data=data.concat(part);
+    }catch(e){console.log("خطأ تحميل:",file,e);}
+  }
   render(data);
   populateSections();
-  hideWelcome();
+  setTimeout(()=>hideWelcome(),4000);
   loadVoices();
 };
 
-async function loadAllData(){
-  for (const file of files){
-    try{
-      const res = await fetch(file);
-      if(!res.ok) { console.warn("fetch failed:", file, res.status); continue; }
-      const part = await res.json();
-      if(Array.isArray(part)) data = data.concat(part);
-    }catch(err){
-      console.error("خطأ تحميل", file, err);
-    }
-  }
-}
-
-/* render */
+function hideWelcome(){document.getElementById("welcome").style.display="none";}
 function render(list){
-  container.innerHTML = "";
-  list.forEach((item, idx) => {
-    const card = document.createElement("article");
-    card.className = "card";
-    card.tabIndex = 0;
-    card.innerHTML = `
-      <h3>${escapeHtml(item.term_en || "")}</h3>
-      <p>${escapeHtml(item.term_ar || "")}</p>
-      <div class="card-controls">
-        <button class="btn-play" data-idx="${idx}">استمع</button>
-        <button class="btn-stop" data-idx="${idx}">إيقاف</button>
-        <button class="btn-detail" data-idx="${idx}">تفاصيل</button>
-      </div>
+  container.innerHTML="";
+  list.forEach(item=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <h3>${item.term_en}</h3>
+      <p>${item.term_ar}</p>
+      <button onclick="speakCard(event, ${data.indexOf(item)})">🔊 استمع</button>
+      <button onclick="stopCard(event)">⏹️ إيقاف</button>
     `;
-    // play
-    card.querySelector(".btn-play").addEventListener("click", (e)=>{
-      e.stopPropagation();
-      speakItem(item);
-    });
-    card.querySelector(".btn-stop").addEventListener("click", (e)=>{
-      e.stopPropagation();
-      stopSpeak();
-    });
-    card.querySelector(".btn-detail").addEventListener("click", (e)=>{
-      e.stopPropagation();
-      openModal(item);
-    });
-    // فتح المودال عند كليك على الكرت نفسه
-    card.addEventListener("click", ()=> openModal(item));
+    card.onclick=()=>openModal(item);
     container.appendChild(card);
   });
 }
 
-/* البحث */
-search.addEventListener("input", ()=>{
-  const t = search.value.trim().toLowerCase();
-  render(data.filter(d =>
-    (d.term_en || "").toLowerCase().includes(t) ||
-    (d.term_ar || "").toLowerCase().includes(t)
-  ));
-});
+search.oninput=()=>{const t=search.value.toLowerCase(); render(data.filter(d=>d.term_en.toLowerCase().includes(t)||d.term_ar.includes(t)));};
+sectionFilter.onchange=()=>{const s=sectionFilter.value; render(s?data.filter(d=>d.section===s):data);};
+function populateSections(){const sections=[...new Set(data.map(d=>d.section))];sections.forEach(sec=>{let opt=document.createElement("option");opt.value=sec;opt.innerText=sec;sectionFilter.appendChild(opt);});}
 
-/* فلتر الأقسام */
-sectionFilter.addEventListener("change", ()=>{
-  const s = sectionFilter.value;
-  render(s ? data.filter(d=>d.section === s) : data);
-});
+// المودال
+function openModal(item){current=item;mTitle.innerText=item.term_en;mMeaning.innerText=item.term_ar + " — " + item.meaning;mDetails.innerText=item.details;modal.style.display="flex";}
+function closeModal(){modal.style.display="none";}
 
-function populateSections(){
-  sectionFilter.innerHTML = '<option value="">كل الأقسام</option>';
-  const sections = [...new Set(data.map(d=>d.section).filter(Boolean))].sort();
-  sections.forEach(sec => {
-    const opt = document.createElement("option");
-    opt.value = sec; opt.textContent = sec;
-    sectionFilter.appendChild(opt);
-  });
-}
+// الإعدادات
+function openSettings(){settingsPanel.classList.add("show");}
+function closeSettings(){settingsPanel.classList.remove("show");}
+function closeSettingsByClick(e){if(e.target.id==="settingsPanel"){closeSettings();}}
 
-/* مودال */
-function openModal(item){
-  current = item;
-  document.getElementById("mTitle").innerText = item.term_en || "";
-  document.getElementById("mMeaning").innerText = (item.term_ar || "") + " — " + (item.meaning || "");
-  document.getElementById("mDetails").innerText = item.details || "";
-  modal.setAttribute("aria-hidden","false");
-  modal.style.display = "flex";
-}
-function closeModal(){
-  modal.setAttribute("aria-hidden","true");
-  modal.style.display = "none";
-}
-document.querySelectorAll(".modal .close").forEach(b=>b.addEventListener("click", closeModal));
-modal.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
-
-/* أصوات */
-let selectedVoice = null;
+// الصوت
+let selectedVoice=null;
+let msg=null;
 function loadVoices(){
-  const voices = speechSynthesis.getVoices();
-  voiceSelect.innerHTML = "";
-  voices.forEach((v,i)=>{
-    const opt = document.createElement("option");
-    opt.value = i;
-    opt.textContent = v.name + (v.lang ? ` — ${v.lang}` : "");
-    voiceSelect.appendChild(opt);
-  });
-  if(voices.length) {
-    selectedVoice = voices[0];
-    voiceSelect.selectedIndex = 0;
-  }
+  let voices=speechSynthesis.getVoices();
+  selectedVoice=voices[0];
 }
-speechSynthesis.onvoiceschanged = loadVoices;
-voiceSelect.addEventListener("change", ()=>{
-  const v = speechSynthesis.getVoices()[voiceSelect.value];
-  if(v) selectedVoice = v;
-});
+speechSynthesis.onvoiceschanged=loadVoices;
+function speakCard(e,index){e.stopPropagation();speechSynthesis.cancel();let item=data[index];msg=new SpeechSynthesisUtterance(`${item.term_en}. ${item.term_ar}. ${item.meaning}. ${item.details}`);msg.voice=selectedVoice;msg.lang=(langSelect.value==="ar")?"ar":"en-US";speechSynthesis.speak(msg);}
+function stopCard(e){e.stopPropagation();speechSynthesis.cancel();}
 
-function speakItem(item){
-  stopSpeak();
-  if(!item) return;
-  const text = `${item.term_en || ""}. ${item.term_ar || ""}. ${item.meaning || ""}. ${item.details || ""}`;
-  const u = new SpeechSynthesisUtterance(text);
-  if(selectedVoice) u.voice = selectedVoice;
-  u.lang = (langSelect.value === "ar") ? "ar-SA" : "en-US";
-  speechSynthesis.speak(u);
-}
-function stopSpeak(){ speechSynthesis.cancel(); }
-
-/* مساعدة صغيرة */
-function hideWelcome(){ const w = document.getElementById("welcome"); if(w) w.style.display="none"; }
-
-/* إسكييب html بسيطة */
-function escapeHtml(str){
-  return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
-}
+// اللغة
+function changeLanguage(){let lang=langSelect.value;document.documentElement.lang=lang;document.documentElement.dir=(lang==="ar")?"rtl":"ltr";}
