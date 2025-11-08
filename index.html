@@ -1,61 +1,43 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>موسوعة المصطلحات</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NEGM — المصطلحات</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- شاشة الترحيب -->
-<div class="welcome" id="welcome">
-  <div class="welcome-box">
-    <h1>مرحبًا بك في موسوعة المصطلحات</h1>
-    <p>انتظر قليلًا جاري التحميل...</p>
-  </div>
-</div>
+<!-- خلفية تأثيرات -->
+<div class="bg-dots"></div>
+<div class="bg-glow"></div>
 
-<!-- زر الإعدادات -->
-<div class="settings-btn" onclick="openSettings()">⚙️</div>
+<header class="top">
+  <div class="brand">NEGM</div> <!-- اسم الموقع صغير -->
+</header>
 
-<!-- العنوان -->
-<div class="top">موسوعة المصطلحات</div>
+<main>
+  <section class="controls">
+    <input id="search" type="text" placeholder="ابحث عن مصطلح..." />
+    <select id="sectionFilter"><option value="">كل الأقسام</option></select>
+    <select id="langSelect">
+      <option value="ar">العربية</option>
+      <option value="en">English</option>
+    </select>
+    <select id="voiceSelect"></select>
+  </section>
 
-<!-- منطقة البحث والفلاتر -->
-<div class="search-area">
-  <input type="text" id="search" placeholder="ابحث عن مصطلح">
-  <select id="sectionFilter"><option value="">كل الأقسام</option></select>
-  <select id="langSelect" onchange="changeLanguage()">
-    <option value="ar">العربية</option>
-    <option value="en">English</option>
-  </select>
-  <select id="voiceSelect"></select>
-  <button class="btn" onclick="speakDetails()">🔊 استمع</button>
-  <button class="btn" onclick="stopSpeak()">⏹️ إيقاف</button>
-</div>
+  <section id="list" class="list" aria-live="polite"></section>
+</main>
 
-<!-- قائمة الكروت -->
-<div class="list" id="list"></div>
-
-<!-- المودال -->
-<div class="modal" id="modal">
+<!-- مودال التفاصيل -->
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
+    <button class="close" id="modalClose">&times;</button>
     <h2 id="mTitle"></h2>
     <p id="mMeaning"></p>
     <p id="mDetails"></p>
   </div>
-</div>
-
-<!-- الإعدادات -->
-<div class="settings-panel" id="settingsPanel" onclick="closeSettingsByClick(event)">
-  <h3>الإعدادات</h3>
-  <label>اللغة:</label>
-  <select id="langSelectSettings" onchange="changeLanguage()">
-    <option value="ar">العربية</option>
-    <option value="en">English</option>
-  </select>
 </div>
 
 <script src="app.js"></script>
