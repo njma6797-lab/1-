@@ -10,11 +10,9 @@
 
 <canvas id="stars"></canvas>
 
-<!-- شاشة الترحيب -->
 <div class="welcome" id="welcome">
   <div class="welcome-box">
-    <h1>مرحبًا بك في موسوعة المصطلحات</h1>
-    <p>انتظر قليلًا جاري التحميل...</p>
+    <h1>مرحبًا بك في Media Byern</h1>
   </div>
 </div>
 
@@ -22,20 +20,20 @@
 
 <div class="settings-btn" onclick="openSettings()">⚙️</div>
 
-<div class="settings-panel" id="settingsPanel" onclick="closeSettingsByClick(event)">
-  <h3>الإعدادات</h3>
-  <label>اللغة:</label>
-  <select id="langSelectSettings" onchange="changeLanguage()">
-    <option value="ar">العربية</option>
-    <option value="en">English</option>
-  </select>
-  <a class="whatsapp" href="https://wa.me/01206561893" target="_blank">💬 WhatsApp</a>
-  <a class="tools" href="#">🛠 Tools المساعده</a>
-  <button class="btn" onclick="closeSettings()">إغلاق</button>
+<div class="settings-panel" id="settingsPanel">
+  <label>اللغة:
+    <select id="langSelectSettings" onchange="changeLanguage()">
+      <option value="ar">عربي</option>
+      <option value="en">English</option>
+    </select>
+  </label>
+  <a class="whatsapp" href="https://wa.me/01206561893" target="_blank">واتساب</a>
+  <div>Tools</div>
+  <button class="btn" onclick="closeSettings()">اغلق الإعدادات</button>
 </div>
 
 <div class="search-area">
-  <input type="text" id="search" placeholder="ابحث عن مصطلح">
+  <input type="text" id="search" placeholder="ابحث هنا...">
   <select id="sectionFilter"><option value="">كل الأقسام</option></select>
 </div>
 
@@ -43,7 +41,7 @@
 
 <div class="modal" id="modal">
   <div class="modal-content">
-    <span class="close" onclick="closeModal()">×</span>
+    <span class="close" onclick="closeModal()">✖️</span>
     <h2 id="mTitle"></h2>
     <p id="mMeaning"></p>
     <p id="mDetails"></p>
