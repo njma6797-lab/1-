@@ -116,8 +116,8 @@ function initStars(){
   canvas.height=window.innerHeight;
   const ctx=canvas.getContext("2d");
   let stars=[];
-  for(let i=0;i<200;i++){
-    stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5+0.5, d:Math.random()*0.5});
+  for(let i=0;i<300;i++){
+    stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5+0.5, d:Math.random()*0.7});
   }
   function draw(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
