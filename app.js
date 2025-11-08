@@ -1,13 +1,10 @@
 let data = [];
 let current = null;
-
-// 10 ملفات JSON
 let files = [
   "data1.json","data2.json","data3.json","data4.json","data5.json",
   "data6.json","data7.json","data8.json","data9.json","data10.json"
 ];
 
-// ربط جميع العناصر
 const search = document.getElementById("search");
 const sectionFilter = document.getElementById("sectionFilter");
 const langSelect = document.getElementById("langSelect");
@@ -25,9 +22,7 @@ window.onload = async () => {
       let res = await fetch(file);
       let part = await res.json();
       data = data.concat(part);
-    }catch(e){
-      console.log("خطأ تحميل:", file, e);
-    }
+    }catch(e){ console.log("خطأ تحميل:", file, e); }
   }
   render(data);
   populateSections();
@@ -35,8 +30,10 @@ window.onload = async () => {
   loadVoices();
 };
 
-/* عرض المصطلحات */
+// إخفاء الترحيب
 function hideWelcome(){document.getElementById("welcome").style.display="none";}
+
+// عرض الكروت
 function render(list){
   container.innerHTML="";
   list.forEach(item=>{
@@ -48,21 +45,17 @@ function render(list){
   });
 }
 
-/* البحث */
+// البحث والفلاتر
 search.oninput = () => {
   const t = search.value.toLowerCase();
-  render(data.filter(d =>
-    d.term_en.toLowerCase().includes(t) ||
-    d.term_ar.includes(t)
-  ));
+  render(data.filter(d => d.term_en.toLowerCase().includes(t) || d.term_ar.includes(t)));
 };
-
-/* تصفية الأقسام */
 sectionFilter.onchange = () => {
   const s = sectionFilter.value;
   render(s ? data.filter(d=>d.section===s) : data);
 };
 
+// تعبئة خيارات الأقسام
 function populateSections(){
   const sections = [...new Set(data.map(d=>d.section))];
   sections.forEach(sec=>{
@@ -73,7 +66,7 @@ function populateSections(){
   });
 }
 
-/* نافذة التفاصيل */
+// المودال
 function openModal(item){
   current = item;
   mTitle.innerText = item.term_en;
@@ -83,7 +76,7 @@ function openModal(item){
 }
 function closeModal(){ modal.style.display = "none"; }
 
-/* الصوت */
+// الصوت
 let selectedVoice = null;
 function loadVoices(){
   let voices = speechSynthesis.getVoices();
@@ -98,25 +91,27 @@ function loadVoices(){
 }
 speechSynthesis.onvoiceschanged = loadVoices;
 
+// إيقاف أي صوت عند أي ضغط في الصفحة
+document.body.addEventListener("click", ()=>{ speechSynthesis.cancel(); });
+
 function speakDetails(){
   if(!current) return;
+  speechSynthesis.cancel();
   const msg = new SpeechSynthesisUtterance(
     `${current.term_en}. ${current.term_ar}. ${current.meaning}. ${current.details}`
   );
   msg.voice = selectedVoice;
   msg.lang = (langSelect.value==="ar") ? "ar" : "en-US";
-  speechSynthesis.speak(msg);
+  setTimeout(()=> speechSynthesis.speak(msg),50);
 }
 function stopSpeak(){ speechSynthesis.cancel(); }
 
-/* الإعدادات */
+// الإعدادات
 function openSettings(){ settingsPanel.classList.add("show"); }
 function closeSettings(){ settingsPanel.classList.remove("show"); }
-function closeSettingsByClick(e){
-  if(e.target.id==="settingsPanel"){ closeSettings(); }
-}
+function closeSettingsByClick(e){ if(e.target.id==="settingsPanel"){ closeSettings(); } }
 
-/* اللغة */
+// اللغة
 function changeLanguage(){
   let lang = langSelect.value;
   document.documentElement.lang = lang;
